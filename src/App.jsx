@@ -21,37 +21,29 @@ const App = () => {
   const setIntinitalState = async () => {
     const imgFetch = await traerMemes(50);
 
-   await imgFetch.forEach(async (element) => {
+    await imgFetch.forEach(async (element, index, array) => {
       element.url = await aBlob(element.url);
-   
+      setMemes(imgFetch);
+      console.log("despues del seteo", memes);
+      let { url, name, box_count, id, height } = imgFetch[0];
 
+      if (index === array.length - 1) {
+        setMeme({
+          url,
+          name,
+          box_count,
+          id,
+          height,
+        });
 
+        if (height <= 880) {
+          box_count = 2;
+        }
+
+        // setLineas(Array.from(Array(box_count), () => ""));
+        setLineas(buildArray(box_count));
+      }
     });
-    setMemes(imgFetch);
-
-    let { url, name, box_count, id ,height} = imgFetch[0]
- 
-
-    
-    setMeme({
-
-      url,
-      name,
-      box_count,
-      id,
-      height,
-    });
-
-
-   
-    if(height<=880){
-      box_count=2
-    }
-
-
-
-    // setLineas(Array.from(Array(box_count), () => ""));
-    setLineas(buildArray(box_count));
   };
 
   const onChangeLineas = ({
@@ -71,16 +63,13 @@ const App = () => {
 
     setMeme(nuevoMeme);
 
+    let { height, box_count } = nuevoMeme;
 
-    let {height, box_count} = nuevoMeme
-
-    if(height<=880){
-      box_count=2
+    if (height <= 880) {
+      box_count = 2;
     }
     //
     //funcion array from primer parametro es un array, segundo una funcion con parametros valor clave en este caso es esencial porque no tengo unarray sobre el que iterar
-    
-
 
     setLineas(Array.from(Array(box_count), (v) => ""));
     //me aseguro que las nuevas lineas esten vacias peor el caso que el proximo meme tenga mas lineas
