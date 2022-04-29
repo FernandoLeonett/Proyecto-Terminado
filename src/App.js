@@ -4,7 +4,7 @@ import { useState } from "react";
 import Select from "./Select";
 import Input from "./Input";
 import BotonExportar from "./BotonExportar";
-import Canva from "./Canva.jsx";
+import Canva from "./Canva";
 import FileComponent from "./FileComponent";
 import { traerMemes } from "./servicio";
 import { aBlob } from "./servicio";
@@ -23,11 +23,13 @@ const App = () => {
 
      imgFetch.forEach(async (element, index, array) => {
       element.url = await aBlob(element.url);
-      setMemes(imgFetch);
+ 
 
       
       if (index === array.length - 1) {
-        let { url, name, box_count, id, height } = imgFetch[0];
+        setMemes(imgFetch);
+        debugger
+        let { url, name, box_count, id, height } = imgFetch[0]
 
         setMeme({
           url,
