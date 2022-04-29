@@ -21,13 +21,14 @@ const App = () => {
   const setIntinitalState = async () => {
     const imgFetch = await traerMemes(50);
 
-    await imgFetch.forEach(async (element, index, array) => {
+     imgFetch.forEach(async (element, index, array) => {
       element.url = await aBlob(element.url);
       setMemes(imgFetch);
-      console.log("despues del seteo", memes);
-      let { url, name, box_count, id, height } = imgFetch[0];
 
+      
       if (index === array.length - 1) {
+        let { url, name, box_count, id, height } = imgFetch[0];
+
         setMeme({
           url,
           name,
